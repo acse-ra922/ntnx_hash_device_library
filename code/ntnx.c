@@ -10,10 +10,18 @@
 
 #define NTNX_HASH_DEVICE "/dev/ntnx_hash"
 #define NTNX_HASH_API_VERSION 1
+#define NTNX_HASH_COMPUTE 1
 
 struct ntnx_hash_s {
     int fd;
 };
+
+struct ntnx_hash_compute {
+ void *buf; // pointer to the area for hashing
+ size_t len; // length of area for checksumming
+ void *hash; // pointer to the area for the computed hash
+};
+
 
 /**
  * @brief Set up a new ntnx_hash_t context
@@ -21,6 +29,7 @@ struct ntnx_hash_s {
  * @return Pointer to ntnx_hash_t on success, or NULL on failure
  * @note The caller is responsible for calling ntnx_hash_destroy() on the returned
  *       pointer when the context is no longer needed.
+ *
  */
 ntnx_hash_t *ntnx_hash_setup(void) {
     // Allocate memory for ntnx_hash_t context
@@ -37,10 +46,9 @@ ntnx_hash_t *ntnx_hash_setup(void) {
         return NULL;
     }
 
-    // Check API version
-    unsigned int api_version;
-    if (ioctl(ctx->fd, NTNX_HASH_GET_API_VERSION, &api_version) == -1 || api_version != NTNX_HASH_API_VERSION) {
-        // API version mismatch
+    // Set IOCTL API version
+    int api_version = NTNX_HASH_API_VERSION;
+    if (ioctl(ctx->fd, _IOR('h', 1, int), &api_version) == -1) {
         close(ctx->fd);
         free(ctx);
         return NULL;
@@ -104,3 +112,4 @@ int ntnx_hash_destroy(ntnx_hash_t *ctx) {
     free(ctx);
     return ret;
 }
+
