@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include "ntnx_hash.h"
+#include "../code/ntnx_hash.h"
 
 int main() {
     FILE *fp;
