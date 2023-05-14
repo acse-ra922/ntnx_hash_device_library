@@ -16,8 +16,12 @@ MD5 hashing device. This is managed by a kernel driver which provides a userspac
 via a character device. 
 The API of this library consists of three functions : 
 
+
 ntnx_hash_t *ntnx_hash_setup(void);
+
 char *ntnx_hash_compute(ntnx_hash_t *ctx, void *buf, size_t len);
+
+
 int ntnx_hash_destroy(ntnx_hash_t *ctx)
 
 ntnx_hash_setup() returns a pointer to a ntnx_hash_t context.
