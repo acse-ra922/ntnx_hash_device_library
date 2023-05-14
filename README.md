@@ -4,6 +4,7 @@
 
 <!-- TOC -->
 * [About](#about)
+* [Code](#code)
 * [Documentation](#documentation)
 * [Testing](#testing)
 * [License](#license)
@@ -28,6 +29,10 @@ ntnx_hash_setup() returns a pointer to a ntnx_hash_t context.
 ntnx_hash_compute() returns a pointer to a null-terminated array of 33 chars (including NUL) 
 which will be allocated in the heap.
 ntnx_hash_destroy() releases all resources associated with the context.
+
+### **Code**
+
+The expected solution, ntnx_hash.c and ntnx_hash.h can be found in the code folder
 
 ### **Documentation**
 
